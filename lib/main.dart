@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter_project/mobile_model.dart';
 import 'package:flutter/services.dart' as rootBundle;
@@ -71,56 +71,73 @@ class _MyHomePageState extends State<MyHomePage> {
             } else if (data.hasData) {
               var items = data.data as List<MobileModel>;
               return ListView.builder(itemBuilder: (context, index) {
-                return Card(
-                  elevation: 5,
-                  margin:
+                return GestureDetector(
+                    onTap: () {
+                      Fluttertoast.showToast(
+                          msg: items[index].id.toString(),
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.green,
+                          textColor: Colors.white,
+                          fontSize: 12.0
+                      );
+                    },
+                    child: Card(
+                      elevation: 5,
+                      margin:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    width: 50,
-                    height: 62,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: Image(
-                            image: NetworkImage(
-                                items[index].mobileImageUrl.toString()),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        Expanded(
-                            child: Container(
-                                padding: const EdgeInsets.only(bottom: 2),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8, right: 8),
-                                      child: Text(
-                                        items[index].mobileName.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
+                      child: Container(
+
+                        padding: const EdgeInsets.all(8),
+                        width: 50,
+                        height: 62,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: Image(
+                                image: NetworkImage(
+                                    items[index].mobileImageUrl.toString()),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            Expanded(
+                                child: Container(
+                                    padding: const EdgeInsets.only(bottom: 2),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8, right: 8),
+                                          child: Text(
+                                            items[index].mobileName.toString(),
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8, right: 8),
-                                      child: Text(
-                                          items[index].mobilePrice.toString()),
-                                    )
-                                  ],
-                                )))
-                      ],
-                    ),
-                  ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8, right: 8),
+                                          child: Text(
+                                              items[index].mobilePrice
+                                                  .toString()),
+                                        )
+                                      ],
+                                    )))
+                          ],
+                        ),
+                      ),
+                    )
                 );
               });
             } else {
@@ -134,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<MobileModel>> ReadJsonData() async {
     final jsondata =
-        await rootBundle.rootBundle.loadString('jsonFile/mobilehut.json');
+    await rootBundle.rootBundle.loadString('jsonFile/mobilehut.json');
     final list = jsonDecode(jsondata) as List<dynamic>;
     return list.map((e) => MobileModel.fromJson(e)).toList();
   }
