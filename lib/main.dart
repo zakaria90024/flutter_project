@@ -60,6 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showSearch(context: context, delegate: CustomSearch());
+                },
+                icon: const Icon(Icons.search))
+          ],
         ),
         body: FutureBuilder(
           future: ReadJsonData(),
@@ -80,15 +87,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           timeInSecForIosWeb: 1,
                           backgroundColor: Colors.green,
                           textColor: Colors.white,
-                          fontSize: 12.0
-                      );
+                          fontSize: 12.0);
                     },
                     child: Card(
                       elevation: 5,
-                      margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
                       child: Container(
-
                         padding: const EdgeInsets.all(8),
                         width: 50,
                         height: 62,
@@ -109,10 +114,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Container(
                                     padding: const EdgeInsets.only(bottom: 2),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
@@ -128,17 +133,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                         Padding(
                                           padding: const EdgeInsets.only(
                                               left: 8, right: 8),
-                                          child: Text(
-                                              items[index].mobilePrice
-                                                  .toString()),
+                                          child: Text(items[index]
+                                              .mobilePrice
+                                              .toString()),
                                         )
                                       ],
                                     )))
                           ],
                         ),
                       ),
-                    )
-                );
+                    ));
               });
             } else {
               return const Center(
@@ -151,8 +155,79 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<MobileModel>> ReadJsonData() async {
     final jsondata =
-    await rootBundle.rootBundle.loadString('jsonFile/mobilehut.json');
+        await rootBundle.rootBundle.loadString('jsonFile/mobilehut.json');
     final list = jsonDecode(jsondata) as List<dynamic>;
     return list.map((e) => MobileModel.fromJson(e)).toList();
+  }
+}
+
+//for search add
+class CustomSearch extends SearchDelegate {
+  List<String> allMobileNameList = [
+    'Samsung',
+    'Nokia',
+    'Xiaomi',
+    'Redmi',
+    'Hp',
+    'infex'
+  ];
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: const Icon(Icons.clear))
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(Icons.arrow_back),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var item in allMobileNameList) {
+      if (item.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var item in allMobileNameList) {
+      if (item.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(item);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
   }
 }
