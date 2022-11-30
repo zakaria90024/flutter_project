@@ -30,7 +30,7 @@ class _SearchPageState extends State<SearchPage> {
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
-      body: ,
+      body:,
     );
   }
 }
