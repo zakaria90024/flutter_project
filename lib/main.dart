@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter_project/mobile_model.dart';
 import 'package:flutter/services.dart' as rootBundle;
+import 'package:test_flutter_project/search.dart';
 
 void main() {
   runApp(const MyApp());
@@ -80,6 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
               return ListView.builder(itemBuilder: (context, index) {
                 return GestureDetector(
                     onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const SearchPage()));
                       Fluttertoast.showToast(
                           msg: items[index].id.toString(),
                           toastLength: Toast.LENGTH_SHORT,
