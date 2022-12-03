@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:test_flutter_project/mobile_model.dart';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:test_flutter_project/search.dart';
+import 'mobile_details_info.dart';
+import 'mobile_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -83,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const SearchPage()));
+                          MaterialPageRoute(builder: (context) => MobileInfoScreen(mobileName: items[index].mobileName, mobileUrl: items[index].mobileImageUrl)));
                       Fluttertoast.showToast(
                           msg: items[index].id.toString(),
                           toastLength: Toast.LENGTH_SHORT,
