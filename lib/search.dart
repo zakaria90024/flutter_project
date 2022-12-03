@@ -29,11 +29,22 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   static List<MobileModel> main_mobiles_list = [
-    MobileModel("1", "mobileName1", "mobilePrice1", "mobileImageUrl"),
-    MobileModel("2", "mobileName2", "mobilePrice2", "mobileImageUrl2"),
-    MobileModel("3", "mobileName3", "mobilePrice3", "mobileImageUrl3")
+    MobileModel("1", "mName1", "200", "mobileImageUrl"),
+    MobileModel("2", "aobileName2", "365", "mobileImageUrl2"),
+    MobileModel("3", "bme3", "655", "mobileImageUrl3"),
+    MobileModel("4", "goe3", "654", "mobileImageUrl4"),
+    MobileModel("4", "nokia", "677", "mobileImageUrl4"),
   ];
   List<MobileModel> new_mobile = List.from(main_mobiles_list);
+
+  void updateList(String value) {
+    setState(() {
+      new_mobile = main_mobiles_list
+          .where((element) =>
+              element.mobileName!.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,18 +60,19 @@ class _SearchPageState extends State<SearchPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Search for a movie",
               style: TextStyle(
                   color: Colors.green,
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             TextField(
-              decoration: InputDecoration(
+              onChanged: (value) => updateList(value),
+              decoration: const InputDecoration(
                 hintText: "eg: The Dark Knight",
                 prefixIcon: Icon(Icons.search),
                 prefixIconColor: Color(0xffff0000),
@@ -76,23 +88,34 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: new_mobile.length,
-                itemBuilder: (context, index) => ListTile(
-                  contentPadding: EdgeInsets.all(8.0),
-                  title: Text(
-                    new_mobile[index].mobileName!,
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text('${new_mobile[index].mobileImageUrl}'),
-                  trailing: Text('${new_mobile[index].mobileName}'),
-                ),
-              ),
+              child: new_mobile.isEmpty
+                  ? const Center(
+                      child: Text(
+                        "Now Result Found",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: new_mobile.length,
+                      itemBuilder: (context, index) => ListTile(
+                        contentPadding: EdgeInsets.all(8.0),
+                        title: Text(
+                          "${new_mobile[index].mobileName}",
+                          style: const TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text('${new_mobile[index].mobileImageUrl}'),
+                        trailing: Text('${new_mobile[index].mobilePrice}'),
+                        //leading: Image.network(new_mobile[index].mobileImageUrl!),
+                      ),
+                    ),
             ),
           ],
         ),
