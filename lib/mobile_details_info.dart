@@ -19,3 +19,4 @@ class MobileInfoScreen extends StatelessWidget {
     );
   }
 }
+k
