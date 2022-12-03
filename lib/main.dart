@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MobileInfoScreen(mobileName: items[index].mobileName, mobileUrl: items[index].mobileImageUrl)));
+                          MaterialPageRoute(builder: (context) => MobileInfoScreen(mobileName: items[index].mobileName, mobileUrl: items[index].mobileImageUrl, mobileDetails: items[index].mobileDescription )));
                       Fluttertoast.showToast(
                           msg: items[index].id.toString(),
                           toastLength: Toast.LENGTH_SHORT,

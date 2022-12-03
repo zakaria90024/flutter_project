@@ -29,11 +29,11 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   static List<MobileModel> main_mobiles_list = [
-    MobileModel("1", "mName1", "200", "mobileImageUrl"),
-    MobileModel("2", "aobileName2", "365", "mobileImageUrl2"),
-    MobileModel("3", "bme3", "655", "mobileImageUrl3"),
-    MobileModel("4", "goe3", "654", "mobileImageUrl4"),
-    MobileModel("4", "nokia", "677", "mobileImageUrl4"),
+    MobileModel("1", "mName1", "200", "mobileImageUrl", "dsdf"),
+    MobileModel("2", "aobileName2", "365", "mobileImageUrl2", "sdfds"),
+    MobileModel("3", "bme3", "655", "mobileImageUrl3", "sdfdsf"),
+    MobileModel("4", "goe3", "654", "mobileImageUrl4", "sdfsdf"),
+    MobileModel("4", "nokia", "677", "mobileImageUrl4", "sdfdsf"),
   ];
   List<MobileModel> new_mobile = List.from(main_mobiles_list);
 
