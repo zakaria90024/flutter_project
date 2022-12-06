@@ -4,11 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:test_flutter_project/mobile_model.dart';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:test_flutter_project/search.dart';
+import 'loginPack/login.dart';
 import 'mobile_details_info.dart';
 import 'mobile_model.dart';
 
 void main() {
-  runApp(const MyApp());
+  //runApp(const MyApp());
+  //for call any activity
+  //runApp(MobileInfoScreen(mobileDetails: "", mobileName: "", mobileUrl: ""));
+  runApp(MaterialApp(
+    home: loginScreen(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -85,7 +91,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     onTap: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MobileInfoScreen(mobileName: items[index].mobileName, mobileUrl: items[index].mobileImageUrl, mobileDetails: items[index].mobileDescription )));
+                          MaterialPageRoute(
+                              builder: (context) => MobileInfoScreen(
+                                  mobileName: items[index].mobileName,
+                                  mobileUrl: items[index].mobileImageUrl,
+                                  mobileDetails:
+                                      items[index].mobileDescription)));
                       Fluttertoast.showToast(
                           msg: items[index].id.toString(),
                           toastLength: Toast.LENGTH_SHORT,
