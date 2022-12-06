@@ -4,7 +4,7 @@ import 'mobile_model.dart';
 
 class MobileInfoScreen extends StatelessWidget {
 
-  var mobileName = "", mobileUrl = "", mobileDetails = "";
+  var mobileName, mobileUrl, mobileDetails;
 
   MobileInfoScreen(
       {Key? key,
