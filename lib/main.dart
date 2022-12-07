@@ -5,6 +5,7 @@ import 'package:test_flutter_project/mobile_model.dart';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:test_flutter_project/search.dart';
 import 'loginPack/login.dart';
+import 'loginPack/register.dart';
 import 'mobile_details_info.dart';
 import 'mobile_model.dart';
 
@@ -13,7 +14,8 @@ void main() {
   //for call any activity
   //runApp(MobileInfoScreen(mobileDetails: "", mobileName: "", mobileUrl: ""));
   runApp(MaterialApp(
-    home: loginScreen(),
+    //home: loginScreen(),
+    home: RegisterPage(),
   ));
 }
 
@@ -62,6 +64,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

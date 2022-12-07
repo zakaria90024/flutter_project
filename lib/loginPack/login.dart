@@ -16,11 +16,19 @@ class _loginScreenState extends State<loginScreen> {
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviveWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+
+      // appBar: AppBar(
+      //   // Here we take the value from the MyHomePage object that was created by
+      //   // the App.build method, and use it to set our appbar title.
+      //   backgroundColor: Color(0xffff0000),
+      //   title: Text(""),
+      // ),
       body: SafeArea(
+
           child: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: deviceHeight * 0.30,
               child: const Padding(
                 padding: EdgeInsets.all(12.0),
@@ -29,7 +37,7 @@ class _loginScreenState extends State<loginScreen> {
                     backgroundImage: AssetImage(
                       'assets/images/burger.jpg',
                     ),
-                    radius: 120,
+                    radius: 140,
                   ),
                 ),
               ),
@@ -82,12 +90,16 @@ class _loginScreenState extends State<loginScreen> {
                           padding: const EdgeInsets.only(left: 15),
                           child: Center(
                             child: TextField(
-                              obscureText: true,
+                              obscureText: _isVisible? false : true,
                               decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        setState((){
+                                          _isVisible = ! _isVisible;
+                                        });
+                                      },
                                       icon: Icon(
-                                        Icons.visibility,
+                                        _isVisible?Icons.visibility: Icons.visibility_off,
                                         color: Colors.grey,
                                       )),
                                   border: InputBorder.none,
@@ -136,8 +148,8 @@ class _loginScreenState extends State<loginScreen> {
                             children: [
                               TextSpan(
                                   text: 'Register',
-                                  style: TextStyle(
-                                      color: Color(0xffB4B4B4), fontSize: 18),
+                                  style: const TextStyle(
+                                      color: Color(0xffff0000), fontSize: 18),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {})
                             ]),
