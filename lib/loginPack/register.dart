@@ -13,7 +13,15 @@ class RegisterPage extends StatelessWidget {
           child: Column(
             children: [
               Container(
+                height: deviceHight * 0.10,
                 child: Image.asset('assets/images/burger.jpg'),
+                decoration: BoxDecoration(
+                  color: Color(0xFFFFFFF).withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(16)
+                ),
+              ),
+              Container(
+                child: Text("Burger Style", style: TextStyle(fontWeight: FontWeight.bold),)
               )
             ],
           ),
