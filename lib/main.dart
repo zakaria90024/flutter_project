@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:test_flutter_project/mobile_model.dart';
 import 'package:flutter/services.dart' as rootBundle;
+import 'package:test_flutter_project/responsiveui/homepage.dart';
 import 'package:test_flutter_project/search.dart';
 import 'loginPack/login.dart';
 import 'loginPack/register.dart';
@@ -13,10 +14,15 @@ void main() {
   //runApp(const MyApp());
   //for call any activity
   //runApp(MobileInfoScreen(mobileDetails: "", mobileName: "", mobileUrl: ""));
+  // runApp(MaterialApp(
+  //   //home: loginScreen(),
+  //   home: RegisterPage(),
+  // ));
   runApp(MaterialApp(
     //home: loginScreen(),
-    home: RegisterPage(),
+    home: HomePage(),
   ));
+
 }
 
 class MyApp extends StatelessWidget {
