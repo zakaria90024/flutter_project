@@ -1,6 +1,6 @@
 class Employee {
-  late int? id;
-  late String? name;
+  int? id;
+  String? name;
 
   Employee(this.id, this.name);
 
