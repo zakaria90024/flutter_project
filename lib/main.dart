@@ -6,10 +6,12 @@ import 'package:flutter/services.dart' as rootBundle;
 import 'package:test_flutter_project/responsiveui/homepage.dart';
 import 'package:test_flutter_project/responsiveui2/home_page.dart';
 import 'package:test_flutter_project/search.dart';
+import 'package:test_flutter_project/sqlFlite/sqlite_crud.dart';
 import 'loginPack/login.dart';
 import 'loginPack/register.dart';
 import 'mobile_details_info.dart';
 import 'mobile_model.dart';
+import 'mysqlDatatable/DataTableDemo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,13 +31,14 @@ void main() {
   //   home: loginScreen(),
   // ));
 
-
   // runApp(MaterialApp(
   //   //home: loginScreen(),
   //   home: HomePage1(),
   // ));
 
   //runApp(const HomePage1());
+
+  //runApp(const MySearch());
 }
 
 class MyApp extends StatelessWidget {
@@ -59,7 +62,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Smartphone - 2021'),
+      //home: const MyHomePage(title: 'Smartphones - 2023'),
+      home: DBTestPage(title: 'dfs',),
     );
   }
 }
@@ -83,7 +87,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,96 +102,103 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: const Icon(Icons.search))
           ],
         ),
-        body: FutureBuilder(
-          future: ReadJsonData(),
-          builder: (context, data) {
-            if (data.hasError) {
-              return Center(
-                child: Text("${data.error}"),
-              );
-            } else if (data.hasData) {
-              var items = data.data as List<MobileModel>;
-              return ListView.builder(itemBuilder: (context, index) {
-                return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MobileInfoScreen(
-                                  mobileName: items[index].mobileName,
-                                  mobileUrl: items[index].mobileImageUrl,
-                                  mobileDetails:
-                                      items[index].mobileDescription)));
-                      Fluttertoast.showToast(
-                          msg: items[index].id.toString(),
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.green,
-                          textColor: Colors.white,
-                          fontSize: 12.0);
-                    },
-                    child: Card(
-                      elevation: 5,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        width: 50,
-                        height: 62,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
+        body: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              child: FutureBuilder(
+                future: ReadJsonData(),
+                builder: (context, data) {
+                  if (data.hasError) {
+                    return Center(
+                      child: Text("${data.error}"),
+                    );
+                  } else if (data.hasData) {
+                    var items = data.data as List<MobileModel>;
+                    return ListView.builder(itemBuilder: (context, index) {
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MobileInfoScreen(
+                                        mobileName: items[index].mobileName,
+                                        mobileUrl: items[index].mobileImageUrl,
+                                        mobileDetails:
+                                            items[index].mobileDescription)));
+                            Fluttertoast.showToast(
+                                msg: items[index].id.toString(),
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 12.0);
+                          },
+                          child: Card(
+                            elevation: 5,
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
                               width: 50,
-                              height: 50,
-                              child: Image(
-                                image: NetworkImage(
-                                    items[index].mobileImageUrl.toString()),
-                                fit: BoxFit.fill,
+                              height: 62,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Image(
+                                      image: NetworkImage(
+                                          items[index].mobileImageUrl.toString()),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                  Expanded(
+                                      child: Container(
+                                          padding: const EdgeInsets.only(bottom: 2),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 8, right: 8),
+                                                child: Text(
+                                                  items[index].mobileName.toString(),
+                                                  style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 8, right: 8),
+                                                child: Text(items[index]
+                                                    .mobilePrice
+                                                    .toString()),
+                                              )
+                                            ],
+                                          )))
+                                ],
                               ),
                             ),
-                            Expanded(
-                                child: Container(
-                                    padding: const EdgeInsets.only(bottom: 2),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8, right: 8),
-                                          child: Text(
-                                            items[index].mobileName.toString(),
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8, right: 8),
-                                          child: Text(items[index]
-                                              .mobilePrice
-                                              .toString()),
-                                        )
-                                      ],
-                                    )))
-                          ],
-                        ),
-                      ),
-                    ));
-              });
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
+                          ));
+                    });
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
+            ),
+          ),
         ));
   }
 
@@ -208,7 +218,8 @@ class CustomSearch extends SearchDelegate {
     'Xiaomi',
     'Redmi',
     'Hp',
-    'infex'
+    'Walton',
+    'Windows'
   ];
 
   @override
