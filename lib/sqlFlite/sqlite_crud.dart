@@ -21,7 +21,7 @@ class _DBTestPageState extends State<DBTestPage> {
   late String name;
   late int curUserId;
 
-  final formKey = new GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   var dbHelper;
   late bool isUpdating;
 
@@ -74,7 +74,7 @@ class _DBTestPageState extends State<DBTestPage> {
             TextFormField(
               controller: controller,
               keyboardType: TextInputType.text,
-              decoration: InputDecoration(labelText: 'Name'),
+              decoration: const InputDecoration(labelText: 'Name'),
               validator: (val) => val?.length == 0 ? 'Enter Name' : null,
               onSaved: (val) => name = val!,
             ),
@@ -92,7 +92,7 @@ class _DBTestPageState extends State<DBTestPage> {
                     });
                     clearName();
                   },
-                  child: Text('CANCEL'),
+                  child: const Text('CANCEL'),
                 )
               ],
             ),
@@ -151,7 +151,7 @@ class _DBTestPageState extends State<DBTestPage> {
           }
 
           if (null == snapshot.data) {
-            return Text("No Data Found");
+            return const Text("No Data Found");
           }
 
           return const CircularProgressIndicator();
@@ -164,7 +164,7 @@ class _DBTestPageState extends State<DBTestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter SQLITE CRUD DEMO'),
+        title: const Text('SQlite'),
       ),
       body: Container(
         child: Column(
